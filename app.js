@@ -1,16 +1,34 @@
 const express = require("express");
+const session = require("express-session");
 const path = require("path");
 const DBManager = require("./lib/DBManager");
 const authRouter = require("./routes/auth.route");
 
 const app = express();
 
+/**
+ * configure session
+ */
+const SessionStore = require("connect-mongodb-session")(session);
+const STORE = new SessionStore({
+  uri: "mongodb://localhost:27017/chat-app",
+  collection: "sessions",
+});
+
+app.use(
+  session({
+    secret: "chat-app",
+    saveUninitialized: false,
+    store: STORE,
+  })
+);
+
 app.use(express.static(path.join(__dirname, "assets")));
 app.set("view engine", "ejs");
 app.set("views", "views");
 
 /**
- * Instatiatin db instance and connect to db
+ * Instantiating db instance and connect to db
  */
 const DBInstance = new DBManager();
 DBInstance.CONNECT();

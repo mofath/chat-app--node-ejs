@@ -55,4 +55,20 @@ exports.createNewUser = (username, email, password) => {
   });
 };
 
+exports.login = (email, password) => {
+  return new Promise((resolve, reject) => {
+    User.findOne({ email })
+      .then((user) => {
+        if (!user) reject("Email not found");
+        else {
+          bcrypt.compare(password, user.password).then((match) => {
+            if (!match) reject("Invalid password");
+            else resolve(user._id);
+          });
+        }
+      })
+      .catch((error) => reject(error));
+  });
+};
+
 exports.User = User;

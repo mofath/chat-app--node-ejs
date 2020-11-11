@@ -1,0 +1,24 @@
+<%- include('../parts/header') %> <%- include('../components/Navbar') %>
+<div class="screen">
+  <div class="auth-form-container">
+    <div class="container">
+      <h1>Chatty</h1>
+      <form action="/login" method="POST">
+        <input
+          type="text"
+          name="email"
+          placeholder="Email"
+          class="form-control"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          class="form-control"
+        />
+        <input type="submit" value="Log in" class="submit-btn" />
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('../parts/scripts') %> <%- include('../parts/footer') %>

@@ -18,6 +18,10 @@
         />
         <input type="submit" value="Log in" class="submit-btn" />
       </form>
+      <% if(authError) { %>
+      <br />
+      <p class="alert alert-danger"><%= authError%></p>
+      <% } %>
     </div>
   </div>
 </div>

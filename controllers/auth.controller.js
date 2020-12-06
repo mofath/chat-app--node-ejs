@@ -2,7 +2,9 @@ const userModel = require("../models/user.model");
 
 exports.getSingup = (req, res, next) => {
   console.log("GET SIGNUP PAGE");
-  res.render("pages/Signup");
+  res.render("pages/Signup", {
+    authError: req.flash("authError"),
+  });
 };
 
 exports.postSingup = async (req, res, next) => {
@@ -13,13 +15,16 @@ exports.postSingup = async (req, res, next) => {
     res.render("pages/Login");
   } catch (error) {
     console.log(error);
+    req.flash("authError", error);
     res.render("pages/Signup");
   }
 };
 
 exports.getLogin = (req, res, next) => {
   console.log("GET LOGIN PAGE");
-  res.render("pages/Login");
+  res.render("pages/Login", {
+    authError: req.flash("authError")[0],
+  });
 };
 
 exports.postLogin = async (req, res, next) => {
@@ -31,7 +36,8 @@ exports.postLogin = async (req, res, next) => {
     res.redirect("/");
   } catch (error) {
     console.log(error);
-    res.render("pages/Login");
+    req.flash("authError", error);
+    res.redirect("/Login");
   }
 };
 

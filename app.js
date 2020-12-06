@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+const flash = require("connect-flash");
 const path = require("path");
 const DBManager = require("./lib/DBManager");
 const authRouter = require("./routes/auth.route");
@@ -24,6 +25,9 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "assets")));
+app.use(express.static(path.join(__dirname, "images")));
+app.use(flash());
+
 app.set("view engine", "ejs");
 app.set("views", "views");
 

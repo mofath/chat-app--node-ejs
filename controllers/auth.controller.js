@@ -34,3 +34,11 @@ exports.postLogin = async (req, res, next) => {
     res.render("pages/Login");
   }
 };
+
+exports.logout = async (req, res, next) => {
+  console.log("LOGOUT REQUREST");
+
+  req.session.destroy(() => {
+    res.redirect("/");
+  });
+};

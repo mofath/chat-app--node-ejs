@@ -1,6 +1,13 @@
 const userModel = require("../models/user.model");
 
-exports.singup = async (req, res, next) => {
+exports.getSingup = (req, res, next) => {
+  console.log("GET SIGNUP PAGE");
+  res.render("pages/Signup", {
+    authError: req.flash("authError"),
+  });
+};
+
+exports.postSingup = async (req, res, next) => {
   console.log("SIGNUP REQUREST");
   const { username, email, password } = req.body;
   try {
@@ -13,7 +20,14 @@ exports.singup = async (req, res, next) => {
   }
 };
 
-exports.login = async (req, res, next) => {
+exports.getLogin = (req, res, next) => {
+  console.log("GET LOGIN PAGE");
+  res.render("pages/Login", {
+    authError: req.flash("authError")[0],
+  });
+};
+
+exports.postLogin = async (req, res, next) => {
   console.log("LOGIN REQUREST");
   const { email, password } = req.body;
   try {

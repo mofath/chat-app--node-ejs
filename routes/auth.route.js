@@ -3,16 +3,20 @@ const bodyParser = require("body-parser");
 
 const authController = require("../controllers/auth.controller");
 
+router.get("/signup", authController.getSingup);
+
 router.post(
   "/signup",
   bodyParser.urlencoded({ extended: true }),
-  authController.singup
+  authController.postSingup
 );
+
+router.get("/login", authController.getLogin);
 
 router.post(
   "/login",
   bodyParser.urlencoded({ extended: true }),
-  authController.login
+  authController.postLogin
 );
 
 router.get("/logout", authController.logout);

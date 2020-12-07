@@ -4,6 +4,8 @@ const flash = require("connect-flash");
 const path = require("path");
 const DBManager = require("./lib/DBManager");
 const authRouter = require("./routes/auth.route");
+const pagesRouter = require("./routes/pages.route");
+
 
 const app = express();
 
@@ -38,6 +40,8 @@ const DBInstance = new DBManager();
 DBInstance.CONNECT();
 
 app.use("/", authRouter);
+app.use("/", pagesRouter);
+
 
 const PORT = 5000;
 

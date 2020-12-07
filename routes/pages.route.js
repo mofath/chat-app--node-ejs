@@ -3,7 +3,7 @@ const router = require("express").Router();
 router.get("/signup", (req, res, next) => {
   console.log("RENDER SIGNUP PAGE");
   res.render("pages/Signup", {
-    authError: req.flash("authError"),
+    authError: req.flash("authError")[0],
   });
 });
 

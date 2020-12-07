@@ -3,7 +3,7 @@
   <div class="auth-form-container">
     <div class="container">
       <h1>Chatty</h1>
-      <h6 >Sign up to chat and connect with your friends.</h6>
+      <h6>Sign up to chat and connect with your friends.</h6>
       <form action="/signup" method="POST">
         <input
           type="text"
@@ -29,9 +29,14 @@
           placeholder="Confirm Password"
           class="form-control"
         />
-        <input type="submit" value="Sign up" class="submit-btn"  />
+        <input type="submit" value="Sign up" class="submit-btn" />
       </form>
     </div>
+
+    <% if(authError) { %>
+    <br />
+    <p class="alert alert-danger"><%= authError%></p>
+    <% } %>
   </div>
 </div>
 <%- include('../parts/scripts') %> <%- include('../parts/footer') %>

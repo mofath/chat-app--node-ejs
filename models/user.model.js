@@ -18,6 +18,10 @@ const userSchema = mongoose.Schema({
     type: [{ name: String, id: String }],
     default: [],
   },
+  recievedRequest: {
+    type: [{ name: String, id: String }],
+    default: [],
+  },
 });
 
 userSchema.pre("save", function (next) {
@@ -66,6 +70,16 @@ exports.login = (email, password) => {
             else resolve(user._id);
           });
         }
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+exports.getUserData = (id) => {
+  return new Promise((resolve, reject) => {
+    User.findById(id)
+      .then((data) => {
+        resolve(data);
       })
       .catch((error) => reject(error));
   });

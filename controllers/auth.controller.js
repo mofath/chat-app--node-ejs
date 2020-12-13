@@ -25,7 +25,7 @@ exports.login = async (req, res, next) => {
   if (validationResult(req).isEmpty()) {
     try {
       const userId = await userModel.login(email, password);
-      req.session.userId = userId;
+      req.session.userId = String(userId);
       res.redirect("/");
     } catch (error) {
       console.log(error);

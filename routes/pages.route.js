@@ -17,23 +17,26 @@ router.get("/login", (req, res, next) => {
 
 router.get("/profile", async (req, res, next) => {
   console.log("RENDER PROFILE PAGE");
-  let id = req.params.id || req.session.userId;
+  let id = req.params.id || req.session.currentUser.id;
   try {
     const userData = await userModel.getUserData(id);
     res.render("pages/Profile", {
       pageTitle: userData.username,
       isUser: true,
-      username: userData.username,
-      userImage: userData.image,
-      isOwner: id === req.session.userId,
+      owner: {
+        username: userData.username,
+        image: userData.image,
+      },
+      currentUser: req.session.currentUser,
+      isOwner: id === req.session.currentUser.id,
       isFriend: userData.friends.find(
-        (friend) => friend.id === req.session.userId
+        (friend) => friend.id === req.session.currentUser.id
       ),
       sentRequest: userData.friendRequests.find(
-        (request) => request.id === req.session.userId
+        (request) => request.id === req.session.currentUser.id
       ),
       recievedRequest: userData.sentRequests.find(
-        (request) => request.id === req.session.userId
+        (request) => request.id === req.session.currentUser.id
       ),
     });
   } catch (err) {

@@ -67,7 +67,7 @@ exports.login = (email, password) => {
         else {
           bcrypt.compare(password, user.password).then((match) => {
             if (!match) reject("Invalid password");
-            else resolve(user._id);
+            else resolve(user);
           });
         }
       })

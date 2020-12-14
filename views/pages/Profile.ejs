@@ -2,18 +2,54 @@
 <div class="container">
   <div class="row">
     <div class="col col-12 col-md-4">
-      <img src="/<%= userImage %>" alt="" />
+      <img src="/<%= owner.image %>" alt="" />
     </div>
     <div class="col col-12 col-md-6">
-      <h3><%= username %></h3>
-      <% if(!isOwner){ %> 
-        <% if(isFriend){ %> is friend 
-        <% } else if(sentRequest) {%> sent request 
-        <% } else if(recievedRequest ) {%> recieved request 
-        <% } else {%> add friend
-        <% } %> 
-     <% } else { %> owner
-     <% } %> 
+      <h3><%= owner.username %></h3>
+      <% if(!isOwner){ %>
+      <form method="POST">
+        <input type="hidden" name="ownerId" value="<%= owner.id %>" />
+        <input type="hidden" name="ownerName" value="<%= owner.username %>" />
+        <input type="hidden" name="ownerImage" value="<%= owner.image %>" />
+        <input type="hidden" name="userId" value="<%= currentUser.id %>" />
+        <input type="hidden" name="userName" value="<%= currentUser.username %>" />
+        <input type="hidden" name="userImage" value="<%= currentUser.image %>" />
+        <% if(isFriend){ %>
+        <input
+          type="submit"
+          value="Unfriend"
+          class="btn btn-danger"
+          formaction="/friend/delete"
+        />
+        <% } else if(sentRequest) {%>
+        <input
+          type="submit"
+          value="Cancel Request"
+          class="btn btn-danger"
+          formaction="/friend/cancel"
+        />
+        <% } else if(recievedRequest) {%>
+        <input
+          type="submit"
+          value="Accept"
+          class="btn btn-danger"
+          formaction="/friend/accept"
+        />
+        <input
+          type="submit"
+          value="Reject"
+          class="btn btn-danger"
+          formaction="/friend/reject"
+        />
+        <% } else {%>
+        <input
+          type="submit"
+          value="Unfriend"
+          class="btn btn-danger"
+          formaction="/friend/add"
+        />
+        <% } %> <% } %>
+      </form>
     </div>
   </div>
 </div>

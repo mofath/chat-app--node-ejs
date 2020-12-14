@@ -24,8 +24,12 @@ exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   if (validationResult(req).isEmpty()) {
     try {
-      const userId = await userModel.login(email, password);
-      req.session.userId = String(userId);
+      const userData = await userModel.login(email, password);
+      req.session.currentUser = {
+        id: String(userData._id),
+        username: userData.username,
+        image: userData.image,
+      };
       res.redirect("/");
     } catch (error) {
       console.log(error);

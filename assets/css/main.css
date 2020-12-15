@@ -3,7 +3,6 @@ body {
   margin: 0px;
   height: 100%;
   background-color: #fafafa;
-
 }
 
 .screen {
@@ -11,4 +10,17 @@ body {
   justify-content: center;
   width: 100%;
   height: 100%;
+}
+
+.profile {
+  padding-top:30px;
+}
+
+.profile h3 {
+  padding-top:30px;
+}
+
+.avatar {
+  width: 300px;
+  height: auto;
 }

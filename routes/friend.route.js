@@ -9,4 +9,10 @@ router.post(
   friendController.add
 );
 
+router.post(
+  "/cancel",
+  bodyParser.urlencoded({ extended: true }),
+  friendController.cancel
+);
+
 module.exports = router;

@@ -9,7 +9,14 @@ exports.add = (req, res, next) => {
     .catch((err) => console.log(err.message));
 };
 
-exports.cancel = (req, res, next) => {};
+exports.cancel = (req, res, next) => {
+  userModel
+    .cancelFriendRequest(req.body)
+    .then(() => {
+      res.redirect(`/profile/${req.body.ownerId}`);
+    })
+    .catch((err) => console.log(err.message));
+};
 
 exports.accept = (req, res, next) => {};
 

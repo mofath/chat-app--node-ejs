@@ -86,10 +86,9 @@ exports.getUserData = (id) => {
 };
 
 exports.sendFriendRequest = async (data) => {
-  console.log(data);
-  const { ownerId, ownerName, ownerImage, userId, userName, userImage } = data;
+  const { ownerId, ownerName, userId, userName } = data;
   try {
-    const friend = await User.findOneAndUpdate(
+    await User.updateOne(
       { _id: userId },
       {
         $push: {
@@ -98,8 +97,7 @@ exports.sendFriendRequest = async (data) => {
             name: ownerName,
           },
         },
-      },
-      { new: true }
+      }
     );
     await User.updateOne(
       { _id: ownerId },
@@ -108,6 +106,22 @@ exports.sendFriendRequest = async (data) => {
           friendRequests: { id: userId, name: userName },
         },
       }
+    );
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+exports.cancelFriendRequest = async (data) => {
+  const { ownerId, userId } = data;
+  try {
+    await User.updateOne(
+      { _id: userId },
+      { $pull: { sentRequests: { id: ownerId } } }
+    );
+    await User.updateOne(
+      { _id: ownerId },
+      { $pull: { friendRequests: { id: userId } } }
     );
   } catch (err) {
     console.log(err.message);

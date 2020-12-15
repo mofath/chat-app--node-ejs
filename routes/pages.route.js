@@ -15,27 +15,28 @@ router.get("/login", (req, res, next) => {
   });
 });
 
-router.get("/profile", async (req, res, next) => {
+router.get("/profile/:id?", async (req, res, next) => {
   console.log("RENDER PROFILE PAGE");
   let id = req.params.id || req.session.currentUser.id;
   try {
-    const userData = await userModel.getUserData(id);
+    const ownerData = await userModel.getUserData(id);
     res.render("pages/Profile", {
-      pageTitle: userData.username,
+      pageTitle: ownerData.username,
       isUser: true,
       owner: {
-        username: userData.username,
-        image: userData.image,
+        id: ownerData._id,
+        username: ownerData.username,
+        image: ownerData.image,
       },
       currentUser: req.session.currentUser,
       isOwner: id === req.session.currentUser.id,
-      isFriend: userData.friends.find(
+      isFriend: ownerData.friends.find(
         (friend) => friend.id === req.session.currentUser.id
       ),
-      sentRequest: userData.friendRequests.find(
+      sentRequest: ownerData.friendRequests.find(
         (request) => request.id === req.session.currentUser.id
       ),
-      recievedRequest: userData.sentRequests.find(
+      recievedRequest: ownerData.sentRequests.find(
         (request) => request.id === req.session.currentUser.id
       ),
     });

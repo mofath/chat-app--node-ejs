@@ -4,6 +4,7 @@ const flash = require("connect-flash");
 const path = require("path");
 const DBManager = require("./lib/DBManager");
 const authRouter = require("./routes/auth.route");
+const friendRouter = require("./routes/friend.route");
 const pagesRouter = require("./routes/pages.route");
 
 
@@ -41,6 +42,7 @@ DBInstance.CONNECT();
 
 app.use("/", authRouter);
 app.use("/", pagesRouter);
+app.use("/friend", friendRouter);
 
 
 const PORT = 5000;

@@ -85,4 +85,33 @@ exports.getUserData = (id) => {
   });
 };
 
+exports.sendFriendRequest = async (data) => {
+  console.log(data);
+  const { ownerId, ownerName, ownerImage, userId, userName, userImage } = data;
+  try {
+    const friend = await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $push: {
+          sentRequests: {
+            id: ownerId,
+            name: ownerName,
+          },
+        },
+      },
+      { new: true }
+    );
+    await User.updateOne(
+      { _id: ownerId },
+      {
+        $push: {
+          friendRequests: { id: userId, name: userName },
+        },
+      }
+    );
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 exports.User = User;

@@ -21,4 +21,11 @@ router.post(
   friendController.accept
 );
 
+router.post(
+  "/reject",
+  bodyParser.urlencoded({ extended: true }),
+  friendController.reject
+);
+
+
 module.exports = router;

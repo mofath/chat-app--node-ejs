@@ -27,6 +27,13 @@ exports.accept = (req, res, next) => {
   .catch((err) => console.log(err.message));
 };
 
-exports.reject = (req, res, next) => {};
+exports.reject = (req, res, next) => {
+  userModel
+  .rejectFriendRequest(req.body)
+  .then(() => {
+    res.redirect(`/profile/${req.body.ownerId}`);
+  })
+  .catch((err) => console.log(err.message));
+};
 
 exports.delete = (req, res, next) => {};

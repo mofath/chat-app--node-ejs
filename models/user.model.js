@@ -166,4 +166,20 @@ exports.rejectFriendRequest = async (data) => {
   }
 };
 
+exports.deleteFriend = async (data) => {
+  const { ownerId, userId } = data;
+  try {
+    await User.updateOne(
+      { _id: ownerId },
+      { $pull: { friends: { id: userId } } }
+    );
+    await User.updateOne(
+      { _id: userId },
+      { $pull: { friends: { id: ownerId } } }
+    );
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 exports.User = User;

@@ -36,4 +36,11 @@ exports.reject = (req, res, next) => {
   .catch((err) => console.log(err.message));
 };
 
-exports.delete = (req, res, next) => {};
+exports.delete = (req, res, next) => {
+  userModel
+  .deleteFriend(req.body)
+  .then(() => {
+    res.redirect(`/profile/${req.body.ownerId}`);
+  })
+  .catch((err) => console.log(err.message));
+};  

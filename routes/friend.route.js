@@ -27,5 +27,10 @@ router.post(
   friendController.reject
 );
 
+router.post(
+  "/delete",
+  bodyParser.urlencoded({ extended: true }),
+  friendController.delete,
+);
 
 module.exports = router;

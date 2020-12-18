@@ -128,4 +128,26 @@ exports.cancelFriendRequest = async (data) => {
   }
 };
 
+exports.acceptFriendRequest = async (data) => {
+  const { ownerId, ownerName, userId, userName } = data;
+  try {
+    await User.updateOne(
+      { _id: ownerId },
+      {
+        $pull: { sentRequests: { id: userId } },
+        $push: { friends: { id: userId, name: userName } },
+      }
+    );
+    await User.updateOne(
+      { _id: userId },
+      {
+        $pull: { friendRequests: { id: ownerId } },
+        $push: { friends: { id: ownerId, name: ownerName } },
+      }
+    );
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 exports.User = User;

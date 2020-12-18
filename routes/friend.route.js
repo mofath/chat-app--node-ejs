@@ -15,4 +15,10 @@ router.post(
   friendController.cancel
 );
 
+router.post(
+  "/accept",
+  bodyParser.urlencoded({ extended: true }),
+  friendController.accept
+);
+
 module.exports = router;

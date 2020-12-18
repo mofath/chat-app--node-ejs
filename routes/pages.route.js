@@ -28,7 +28,10 @@ router.get("/profile/:id?", async (req, res, next) => {
         username: ownerData.username,
         image: ownerData.image,
       },
-      currentUser: req.session.currentUser,
+      currentUser:{
+        ...req.session.currentUser,
+        friendRequests: req.friendRequests,
+      },
       isOwner: id === req.session.currentUser.id,
       isFriend: ownerData.friends.find(
         (friend) => friend.id === req.session.currentUser.id

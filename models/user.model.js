@@ -182,4 +182,13 @@ exports.deleteFriend = async (data) => {
   }
 };
 
+exports.getFriendRequests = async (id) => {
+  try {
+    const user = await User.findById(id, { friendRequests: true });
+    return user.friendRequests;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 exports.User = User;

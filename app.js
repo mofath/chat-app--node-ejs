@@ -6,7 +6,7 @@ const DBManager = require("./lib/DBManager");
 const authRouter = require("./routes/auth.route");
 const friendRouter = require("./routes/friend.route");
 const pagesRouter = require("./routes/pages.route");
-
+const getFriendRequests = require("./models/user.model").getFriendRequests;
 
 const app = express();
 
@@ -40,10 +40,17 @@ app.set("views", "views");
 const DBInstance = new DBManager();
 DBInstance.CONNECT();
 
+app.use(async (req, res, next) => {
+  if (req.session.currentUser) {
+    req.friendRequests = await getFriendRequests(req.session.currentUser.id);
+    next();
+  } else {
+    next();
+  }
+});
 app.use("/", authRouter);
 app.use("/", pagesRouter);
 app.use("/friend", friendRouter);
-
 
 const PORT = 5000;
 

@@ -7,7 +7,6 @@ const userName = document.querySelector('[name="userName"]') || null;
 
 if (addBtn) {
   addBtn.onclick = (event) => {
-    alert(1);
     event.preventDefault();
     socket.emit("sendFriendRequest", {
       ownerId: ownerId.value,

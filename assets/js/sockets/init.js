@@ -6,8 +6,6 @@ socket.on("connect", () => {
 });
 
 socket.on("newFriendRequest", (data) => {
-  alert(2);
-  console.log(data);
   alert(`hi, i'm ${data.friendName}`);
   const friendReuests = document.querySelector("#friendRequests");
   const span = friendReuests.querySelector("span");

@@ -7,13 +7,21 @@
     <div class="col col-12 col-md-6">
       <h3><%= owner.username %></h3>
       <% if(!isOwner){ %>
-      <form method="POST">
+      <form method="POST" id="friend-form">
         <input type="hidden" name="ownerId" value="<%= owner.id %>" />
         <input type="hidden" name="ownerName" value="<%= owner.username %>" />
         <input type="hidden" name="ownerImage" value="<%= owner.image %>" />
         <input type="hidden" name="userId" value="<%= currentUser.id %>" />
-        <input type="hidden" name="userName" value="<%= currentUser.username %>" />
-        <input type="hidden" name="userImage" value="<%= currentUser.image %>" />
+        <input
+          type="hidden"
+          name="userName"
+          value="<%= currentUser.username %>"
+        />
+        <input
+          type="hidden"
+          name="userImage"
+          value="<%= currentUser.image %>"
+        />
         <% if(isFriend){ %>
         <input
           type="submit"
@@ -42,15 +50,15 @@
           formaction="/friend/reject"
         />
         <% } else {%>
-        <input
-          type="submit"
-          value="Add"
-          class="btn btn-danger"
-          formaction="/friend/add"
-        />
+        <input type="submit" value="Add" id="addBtn" class="btn btn-danger" />
         <% } %> <% } %>
       </form>
     </div>
   </div>
 </div>
-<%-include('../parts/scripts') %> <%- include('../parts/footer') %>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/sockets/init.js"></script>
+<% if (!isOwner && !isFriend && !sentRequest && !recievedRequest) { %>
+<script src="/js/sockets/friend.js"></script>
+<% } %> <%-include('../parts/scripts') %> <%- include('../parts/footer') %>

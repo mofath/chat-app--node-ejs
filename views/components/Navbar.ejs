@@ -52,7 +52,7 @@
             </button>
 
             <% if(currentUser) { %>
-                <input id="userId" type="hidden" value="<%= isUser%>" />
+                <input id="userId" type="hidden" value="<%= currentUser.id %>" />
                 <div class="dropdown">
                   <button
                     class="btn btn-primary dropdown-toggle"
@@ -69,9 +69,9 @@
                     class="dropdown-menu"
                     aria-labelledby="friendRequestsDropdown"
                   >
-                    <% if (currentUser && currentUser.friendRequests && currentUser.friendRequests.length === 0) { %>
+                    <% if (currentUser.friendRequests.length === 0) { %>
                         <span>no friend requests</span>
-                    <% } %>
+                    <% } %> 
                     <% for (let request of currentUser.friendRequests) { %>
                         <a class="dropdown-item" href="/profile/<%= request.id %>">
                             <%= request.name %>

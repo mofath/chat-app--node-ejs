@@ -7,8 +7,14 @@ const authRouter = require("./routes/auth.route");
 const friendRouter = require("./routes/friend.route");
 const pagesRouter = require("./routes/pages.route");
 const getFriendRequests = require("./models/user.model").getFriendRequests;
+const socketIO = require("socket.io");
 
 const app = express();
+const server = require("http").createServer(app);
+const io = socketIO(server);
+
+require("./sockets/friend.socket")(io);
+require("./sockets/init.socket")(io);
 
 /**
  * configure session
@@ -54,4 +60,4 @@ app.use("/friend", friendRouter);
 
 const PORT = 5000;
 
-app.listen(PORT, () => console.log(`server is listening at port ${PORT}`));
+server.listen(PORT, () => console.log(`server is listening at port ${PORT}`));

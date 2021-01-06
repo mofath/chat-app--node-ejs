@@ -191,4 +191,15 @@ exports.getFriendRequests = async (id) => {
   }
 };
 
+exports.getFriends = async (id) => {
+  console.log(id);
+  try {
+    const user = await User.findById(id, { friends: true });
+    return user.friends;
+  } catch (err) {
+    console.log(err.message);
+    throw new Error(err);
+  }
+};
+
 exports.User = User;

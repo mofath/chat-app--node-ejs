@@ -5,7 +5,7 @@ router.get("/signup", (req, res, next) => {
   console.log("RENDER SIGNUP PAGE");
   res.render("pages/Signup", {
     authError: req.flash("authError")[0],
-    currentUser:null
+    currentUser: null,
   });
 });
 
@@ -13,7 +13,17 @@ router.get("/login", (req, res, next) => {
   console.log("RENDER LOGIN PAGE");
   res.render("pages/Login", {
     authError: req.flash("authError")[0],
-    currentUser: null
+    currentUser: req.session.currentUser,
+  });
+});
+
+router.get("/", (req, res, next) => {
+  console.log("RENDER Home PAGE");
+  res.render("pages/index", {
+    currentUser: {
+      ...req.session.currentUser,
+      friendRequests: req.friendRequests,
+    },
   });
 });
 
@@ -30,9 +40,9 @@ router.get("/profile/:id?", async (req, res, next) => {
         username: ownerData.username,
         image: ownerData.image,
       },
-      currentUser:{
+      currentUser: {
         ...req.session.currentUser,
-        friendRequests: req.friendRequests,
+        friendRequests: [...req.friendRequests],
       },
       isOwner: id === req.session.currentUser.id,
       isFriend: ownerData.friends.find(

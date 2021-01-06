@@ -2,6 +2,7 @@ const userModel = require("../models/user.model");
 
 
 exports.cancel = (req, res, next) => {
+  console.log("cancel");
   userModel
     .cancelFriendRequest(req.body)
     .then(() => {
@@ -11,6 +12,7 @@ exports.cancel = (req, res, next) => {
 };
 
 exports.accept = (req, res, next) => {
+  console.log("accept");
   userModel
   .acceptFriendRequest(req.body)
   .then(() => {
@@ -20,6 +22,7 @@ exports.accept = (req, res, next) => {
 };
 
 exports.reject = (req, res, next) => {
+  console.log("reject");
   userModel
   .rejectFriendRequest(req.body)
   .then(() => {
@@ -29,6 +32,7 @@ exports.reject = (req, res, next) => {
 };
 
 exports.delete = (req, res, next) => {
+  console.log("delete");
   userModel
   .deleteFriend(req.body)
   .then(() => {

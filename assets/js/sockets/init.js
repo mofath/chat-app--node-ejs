@@ -1,12 +1,13 @@
 const socket = io();
+const userId = document.querySelector("#userId").value;
+const btn = document.getElementById("friendRequestsDropdown");
 
 socket.on("connect", () => {
-  const ownerId = document.querySelector('[name="ownerId"]') || null;
-  if (ownerId) socket.emit("joinNotificationsRoom", ownerId.value);
+  socket.emit("joinNotificationsRoom", userId);
+  socket.emit("goOnline", userId);
 });
 
 socket.on("newFriendRequest", (data) => {
-  alert(`hi, i'm ${data.friendName}`);
   const friendReuests = document.querySelector("#friendRequests");
   const span = friendReuests.querySelector("span");
   if (span) span.remove();
@@ -14,12 +15,10 @@ socket.on("newFriendRequest", (data) => {
   <a class="dropdown-item" href="/profile/${data.friendId}">
    ${data.friendName}
   </a>`;
-  const btn = document.getElementById("friendRequestsDropdown");
   btn.classList.remove("btn-primary");
   btn.classList.add("btn-danger");
 });
 
-const btn = document.getElementById("friendRequestsDropdown");
 btn.onclick = () => {
   btn.classList.remove("btn-danger");
   btn.classList.add("btn-primary");

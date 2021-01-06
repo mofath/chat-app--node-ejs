@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 
 const friendController = require("../controllers/friend.controller");
 
-
 router.post(
   "/cancel",
   bodyParser.urlencoded({ extended: true }),

@@ -13,6 +13,8 @@ const app = express();
 const server = require("http").createServer(app);
 const io = socketIO(server);
 
+io.onlineUsers = {};
+
 require("./sockets/friend.socket")(io);
 require("./sockets/init.socket")(io);
 

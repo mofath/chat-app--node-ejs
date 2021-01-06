@@ -1,27 +1,21 @@
-const addBtn = document.querySelector("#addBtn") || null;
+const addBtn = document.querySelector("#addBtn");
+const ownerName = document.querySelector('[name="ownerName"]').value;
+const userName = document.querySelector('[name="userName"]').value;
+const ownerId = document.querySelector('[name="ownerId"]').value;
 
-const ownerId = document.querySelector('[name="ownerId"]') || null;
-const ownerName = document.querySelector('[name="ownerName"]') || null;
-const userId = document.querySelector('[name="userId"]') || null;
-const userName = document.querySelector('[name="userName"]') || null;
-
-if (addBtn) {
+if (addBtn)
   addBtn.onclick = (event) => {
     event.preventDefault();
     socket.emit("sendFriendRequest", {
-      ownerId: ownerId.value,
-      ownerName: ownerName.value,
-      userId: userId.value,
-      userName: userName.value,
+      ownerId: ownerId,
+      ownerName: ownerName,
+      userId: userId,
+      userName: userName,
     });
   };
-}
 
 socket.on("requestSent", () => {
-  if (addBtn) {
-    addBtn.remove();
-  }
-
+  addBtn.remove();
   document.querySelector("#friend-form").innerHTML += `<input
   type="submit"
   value="Cancel Request"
